@@ -8,7 +8,13 @@ local gtt = GameTooltip
 
 
 -- WARNING if InFlight_Load is still present.
-if C_AddOns.IsAddOnLoaded("InFlight_Load") then
+if GetCVar('portal') == 'CN' then
+  AddOnLoadFunction = IsAddOnLoaded
+else
+  AddOnLoadFunction = C_AddOns.IsAddOnLoaded
+end
+
+if AddOnLoadFunction("InFlight_Load") then
   print("|cffff0000\"InFlight_Load\" is no longer required for \"InFlight\". You can disable or remove it.|r")
   C_AddOns.DisableAddOn("InFlight_Load")
 
@@ -125,7 +131,7 @@ end
 
 
 -- For Immersion addon.
-if C_AddOns.IsAddOnLoaded("Immersion") then
+if AddOnLoadFunction("Immersion") then
   local immersionHookFrame = CreateFrame("Frame")
   immersionHookFrame:SetScript("OnEvent", function(_, event)
     if ImmersionFrame and ImmersionFrame.TitleButtons then
